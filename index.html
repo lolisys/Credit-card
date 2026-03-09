@@ -38,11 +38,6 @@
             margin-bottom: 20px;
         }
 
-        .card-icons img {
-            height: 30px;
-            filter: grayscale(20%);
-        }
-
         .input-group {
             margin-bottom: 15px;
         }
@@ -54,7 +49,7 @@
             margin-bottom: 5px;
         }
 
-        input[type="text"], select {
+        input[type="text"] {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
@@ -63,14 +58,9 @@
             font-size: 1rem;
         }
 
-        .row {
-            display: flex;
-            gap: 10px;
-        }
-
         .btn-pay {
             width: 100%;
-            background-color: #1a1f71; /* Visa Blue */
+            background-color: #1a1f71; 
             color: white;
             padding: 14px;
             border: none;
@@ -79,11 +69,6 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
-            transition: background 0.3s;
-        }
-
-        .btn-pay:hover {
-            background-color: #252a85;
         }
 
         .secure-notice {
@@ -97,32 +82,36 @@
 <body>
 
 <div class="payment-container">
-    <h2>Complete Payment</h2>
+    <h2>Secure Card Checkout</h2>
     
     <div class="card-icons">
         <span style="font-weight: bold; color: #1a1f71;">VISA</span>
-        <span style="font-weight: bold; color: #eb001b;">Mastercard</span>
+        <span style="font-weight: bold; color: #eb001b;">MASTERCARD</span>
     </div>
 
     <form name="JPesa" method="post" action="https://my.jpesa.com/?dad=xp">
-        
         <input type="hidden" name="ownerid" value="wasswa.lawrence" />
         <input type="hidden" name="description" value="Credit Note" />
         <input type="hidden" name="return" value="https://my.jpesa.com" />
         <input type="hidden" name="cancel" value="https://my.jpesa.com" />
         
-        <input type="hidden" name="amount" value="21670" />
-        
+        <input type="hidden" name="method" value="card" />
         <input type="hidden" name="cur" value="UGX" />
+        <input type="hidden" name="amount" value="21670" />
+
+        <div class="input-group">
+            <label>Cardholder Name</label>
+            <input type="text" name="customer_name" placeholder="Name on card" required>
+        </div>
 
         <div class="input-group">
             <label>Card Number</label>
-            <input type="text" placeholder="**** **** **** ****" maxlength="19">
+            <input type="text" placeholder="0000 0000 0000 0000" maxlength="19">
         </div>
 
-        <div class="row">
-            <div class="input-group" style="flex: 2;">
-                <label>Expiry Date</label>
+        <div style="display: flex; gap: 10px;">
+            <div class="input-group" style="flex: 1;">
+                <label>Expiry</label>
                 <input type="text" placeholder="MM/YY" maxlength="5">
             </div>
             <div class="input-group" style="flex: 1;">
@@ -131,10 +120,10 @@
             </div>
         </div>
 
-        <input type="submit" name="pay" class="btn-pay" value="Pay UGX 21,670" />
+        <input type="submit" class="btn-pay" value="Pay Now">
         
         <div class="secure-notice">
-            &#128274; Encrypted SSL Secure Payment
+            &#128274; Secure SSL Checkout
         </div>
     </form>
 </div>
