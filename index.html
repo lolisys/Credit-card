@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Card Payment</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .payment-container {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icons img {
+            height: 30px;
+            filter: grayscale(20%);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-pay {
+            width: 100%;
+            background-color: #1a1f71; /* Visa Blue */
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn-pay:hover {
+            background-color: #252a85;
+        }
+
+        .secure-notice {
+            font-size: 0.75rem;
+            color: #999;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="payment-container">
+    <h2>Complete Payment</h2>
+    
+    <div class="card-icons">
+        <span style="font-weight: bold; color: #1a1f71;">VISA</span>
+        <span style="font-weight: bold; color: #eb001b;">Mastercard</span>
+    </div>
+
+    <form name="JPesa" method="post" action="https://my.jpesa.com/?dad=xp">
+        
+        <input type="hidden" name="ownerid" value="wasswa.lawrence" />
+        <input type="hidden" name="description" value="Credit Note" />
+        <input type="hidden" name="return" value="https://my.jpesa.com" />
+        <input type="hidden" name="cancel" value="https://my.jpesa.com" />
+        
+        <input type="hidden" name="amount" value="21670" />
+        
+        <input type="hidden" name="cur" value="UGX" />
+
+        <div class="input-group">
+            <label>Card Number</label>
+            <input type="text" placeholder="**** **** **** ****" maxlength="19">
+        </div>
+
+        <div class="row">
+            <div class="input-group" style="flex: 2;">
+                <label>Expiry Date</label>
+                <input type="text" placeholder="MM/YY" maxlength="5">
+            </div>
+            <div class="input-group" style="flex: 1;">
+                <label>CVV</label>
+                <input type="text" placeholder="123" maxlength="3">
+            </div>
+        </div>
+
+        <input type="submit" name="pay" class="btn-pay" value="Pay UGX 21,670" />
+        
+        <div class="secure-notice">
+            &#128274; Encrypted SSL Secure Payment
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
