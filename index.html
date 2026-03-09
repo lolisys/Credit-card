@@ -107,12 +107,12 @@
 <div class="container" id="app">
     <div class="top-banner">
         <div style="background: white; padding: 5px; border-radius: 4px; display: flex; align-items: center;">
-            <span style="color:#0033a0; font-weight:bold; font-size: 10px;">Selar visa MasterCard Invoice</span>
+            <span style="color:#0033a0; font-weight:bold; font-size: 10px;">Jpesa visa MasterCard </span>
         </div>
     </div>
 
     <div class="header-content">
-        <p class="jpesa-title">Selar invoice International</p>
+        <p class="jpesa-title">Jpesa Account  International</p>
         <p class="jpesa-sub">Plot Z, Kuwait City, Polyn Street Road<br>P.O. Box 25630 - Kuwait <br>+1-Kuwait</p>
     </div>
 
@@ -187,7 +187,7 @@
         const ov = document.getElementById('overlay');
         ov.style.display = 'flex';
         document.getElementById('modalContent').innerHTML = `
-            <h3>Your Selar account loading</h3>
+            <h3>Your Jpesa account loading</h3>
             <div class="progress-container"><div id="regProgress" class="progress-bar"></div></div>
             <p id="progText">0%</p>
         `;
@@ -218,7 +218,7 @@
         document.getElementById('userInfoDisplay').innerText = `${state.name} | ${state.phone}`;
 
         if(state.step === 1) {
-             document.getElementById('notifText').innerHTML = "Successfully registered your SIM Card on Selar system. Send/Receive globally.";
+             document.getElementById('notifText').innerHTML = "Successfully registered your Jpesa Account. Send/Receive globally.";
         }
 
         if(state.step === 2) {
@@ -246,13 +246,13 @@
         ov.style.display = 'flex';
         document.getElementById('modalContent').innerHTML = `
             <h3>Deposit Detected</h3>
-            <p>Amount: <b>${amount}.00$</b><br>Sender: lolikishee (A001112)<br>Address: USA CHICAGO</p>
+            <p>Amount: <b>${amount}.00$</b><br>Sender: lolikishee (A001112)<br>Address: KUKUWAIT KKUWAIT CITY</p>
             <button class="btn-action" onclick="confirmDeposit(${amount})">CONFIRM TRANSACTION</button>
         `;
     }
 
     function confirmDeposit(amt) {
-        document.getElementById('modalContent').innerHTML = `<div class="loading-ring"></div><p>Always confirm any Transaction invoice on Your Selar account for safety.</p>`;
+        document.getElementById('modalContent').innerHTML = `<div class="loading-ring"></div><p>Always confirm any Transaction on Your Jpesa account for safety.</p>`;
         setTimeout(() => {
             document.getElementById('overlay').style.display = 'none';
             state.step = (amt === 200) ? 2 : 4;
