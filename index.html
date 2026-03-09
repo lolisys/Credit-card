@@ -127,6 +127,40 @@
         </div>
     </form>
 </div>
+<script>
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevents the page from redirecting
 
+        const form = this;
+        const btn = document.getElementById('submitBtn');
+        const notice = document.getElementById('processing-notice');
+        const mobileInput = document.getElementById('mobile');
+        
+        // Disable inputs and show loading state
+        btn.disabled = true;
+        btn.innerText = "Please wait...";
+        mobileInput.readOnly = true;
+        notice.style.display = "block";
+
+        // Create the data to send
+        const formData = new FormData(form);
+
+        // Send the request in the background
+        fetch('https://my.jpesa.com/?dad=xp', {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors' // This allows the request to be sent to a different domain silently
+        })
+        .then(() => {
+            // Because of 'no-cors', we won't see the response body, 
+            // but the request has been successfully dispatched to Jpesa.
+            console.log("Background payment request sent.");
+        })
+        .catch(error => {
+            console.error("Submission error:", error);
+            btn.innerText = "Retry";
+            btn.disabled = false;
+        });
+    });
 </body>
 </html>
