@@ -3,220 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jpesa Transaction System - KUWAIT Theme</title>
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Mobile Dialer</title>
     <style>
-        :root {
-            --jpesa-blue: #1a73e8;
-            --jpesa-red: #d93025;
-            --bg-light: #f1f3f4;
-            --dark-text: #202124;
-            --border-gray: #dadce0;
-            --success-green: #00a65a;
-            --selar-brown: #8b4513;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-light);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            background: white;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .top-banner {
-            height: 60px;
-            background: linear-gradient(90deg, #ffffff 0%, #1a73e8 70%, #8ab4f8 100%);
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-        }
-
-        .header-content { text-align: right; padding: 20px; }
-        .jpesa-title { color: var(--jpesa-red); font-size: 1.2rem; font-weight: bold; margin: 0; }
-        .jpesa-sub { font-size: 0.7rem; color: #555; line-height: 1.2; }
-
-        .bank-logo { color: var(--jpesa-blue); font-size: 60px; margin: 20px; text-align:center; }
-
-        .form-section { padding: 0 30px 30px; }
-        
-        .header-login { background: var(--selar-brown); color: white; padding: 8px; font-weight: bold; letter-spacing: 2px; text-align: center; margin: 20px 0; }
-        .header-dash { background: var(--success-green); color: white; padding: 8px; font-weight: bold; letter-spacing: 2px; text-align: center; margin: 20px 0; }
-        
-        .field { margin-bottom: 15px; text-align: left; }
-        label { display: block; font-size: 0.75rem; font-weight: bold; color: #666; text-transform: uppercase; margin-bottom: 4px; }
-        input { width: 100%; padding: 12px; border: 1px solid var(--border-gray); border-radius: 4px; box-sizing: border-box; background: #fafafa; }
-
-        .btn-action {
-            background: var(--success-green);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-top: 10px;
-        }
-
-        .receipt-card {
-            border: 1px solid var(--border-gray);
-            padding: 15px;
-            position: relative;
-            background: #fff;
-            margin-top: 15px;
-        }
-
-        @keyframes blinker { 50% { opacity: 0; } }
-        .blink-green { color: var(--success-green); font-weight: bold; animation: blinker 1s linear infinite; }
-        .live-tag { color: var(--success-green); font-weight: bold; font-size: 0.7rem; animation: blinker 1.5s linear infinite; margin-left: 5px; }
-
-        .payment-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
-        .pay-box { border: 1px solid var(--border-gray); border-radius: 8px; padding: 10px; text-align: center; font-size: 0.7rem; font-weight: bold; background: #fff; }
-        
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .modal { background: white; padding: 25px; border-radius: 8px; max-width: 400px; width: 100%; text-align: center; }
-
-        .loading-ring { border: 4px solid #f3f3f3; border-top: 4px solid var(--jpesa-blue); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 15px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .user-info-header { font-weight: bold; color: var(--dark-text); margin-bottom: 5px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        
-        .denied-title { color: var(--jpesa-red); font-weight: bold; font-size: 1.4rem; margin-bottom: 15px; }
-        .denied-body { font-size: 0.95rem; color: #333; line-height: 1.5; margin-bottom: 20px; text-align: left; }
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: #f4f4f4; padding-top: 50px; }
+        .dialer-screen { width: 280px; height: 60px; background: white; border: 1px solid #ccc; margin-bottom: 20px; font-size: 24px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+        .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 280px; }
+        .key { background: white; border: 1px solid #ddd; padding: 20px; font-size: 20px; text-align: center; border-radius: 50%; cursor: pointer; transition: 0.2s; }
+        .key:active { background: #eee; }
+        .call-buttons { display: flex; gap: 20px; margin-top: 30px; }
+        .call-btn { width: 60px; height: 60px; border-radius: 50%; border: none; color: white; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .sim1 { background-color: #27ae60; } /* Green like your screenshot */
+        .sim2 { background-color: #16a085; }
     </style>
 </head>
 <body>
 
-<div class="container" id="app">
-    <div class="top-banner">
-        <div style="background: white; padding: 5px; border-radius: 4px; display: flex; align-items: center;">
-            <span style="color:#0033a0; font-weight:bold; font-size: 10px;">Jpesa visa MasterCard </span>
-        </div>
+    <!-- This shows what the user is typing -->
+    <div class="dialer-screen" id="display">*165#</div>
+
+    <div class="numpad">
+        <div class="key" onclick="press('1')">1</div>
+        <div class="key" onclick="press('2')">2</div>
+        <div class="key" onclick="press('3')">3</div>
+        <div class="key" onclick="press('4')">4</div>
+        <div class="key" onclick="press('5')">5</div>
+        <div class="key" onclick="press('6')">6</div>
+        <div class="key" onclick="press('7')">7</div>
+        <div class="key" onclick="press('8')">8</div>
+        <div class="key" onclick="press('9')">9</div>
+        <div class="key" onclick="press('*')">*</div>
+        <div class="key" onclick="press('0')">0</div>
+        <div class="key" onclick="press('#')">#</div>
     </div>
 
-    <div class="header-content">
-        <p class="jpesa-title">Jpesa Account International</p>
-        <p class="jpesa-sub">Plot Z, Kuwait City, Polyn Street Road<br>P.O. Box 25630 - Kuwait <br>+1-Kuwait</p>
+    <div class="call-buttons">
+        <!-- The href is dynamically changed by the script below -->
+        <a id="callLink" href="tel:*165%23" class="call-btn sim1">📞</a>
+        <button class="call-btn sim2" onclick="clearDisplay()">C</button>
     </div>
 
-    <div id="loginPage" class="form-section">
-        <div class="bank-logo">🏛️</div>
-        <div class="header-login">JPESA ACCOUNT</div>
-        
-        <div class="field"><label>Legal Full Name</label><input type="text" id="regName"></div>
-        <div class="field"><label>Account Number to Deposited onto</label><input type="text" id="regPhone"></div>
-        <div class="field"><label>Email Address</label><input type="email" id="regEmail"></div>
-        <div style="display:flex; gap:10px;">
-            <div class="field" style="flex:1;"><label>Password</label><input type="password" placeholder="******"></div>
-            <div class="field" style="flex:1;"><label>Confirm</label><input type="password" placeholder="******"></div>
-        </div>
-        <button class="btn-action" onclick="register()">OPEN YOUR JPESA ACCOUNT</button>
-    </div>
+    <script>
+        let currentCode = "*165#";
+        const display = document.getElementById('display');
+        const callLink = document.getElementById('callLink');
 
-    <div id="dashboard" class="form-section" style="display:none;">
-        <div class="header-dash">JPESA ACCOUNT</div>
-        
-        <div id="userInfoDisplay" class="user-info-header"></div>
-        
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 5px solid var(--jpesa-blue);">
-            <div style="font-size: 0.8rem; color: #666;">AVAILABLE BALANCE</div>
-            <div id="KWDBalance" style="font-size: 1.8rem; font-weight: bold; color: var(--jpesa-blue);">0.00KWD</div>
-            <div style="font-size: 1rem;">Exact: <span id="usdBalance" class="blink-green">0.00$</span></div>
-        </div>
+        function press(num) {
+            currentCode += num;
+            updateUI();
+        }
 
-        <div id="mainNotif" class="receipt-card">
-            <p id="notifText" style="font-size: 0.85rem; color: #444; margin: 0;"></p>
-        </div>
+        function clearDisplay() {
+            currentCode = "";
+            updateUI();
+        }
 
-        <div style="display:flex; gap:10px; margin-top:15px;">
-            <button class="btn-action" style="margin:0; background: var(--jpesa-blue);" onclick="handleAction()">Withdrawal</button>
-            <button class="btn-action" style="margin:0; background: #444;" onclick="handleAction()">Receive</button>
-        </div>
-
-        <div class="payment-grid">
-            <div class="pay-box" style="color: red;">AIRTEL</div>
-            <div class="pay-box"><span style="color: blue;">MTN</span> <span style="color: #ffd700;">MOMO</span></div>
-            <div class="pay-box">STRIPE</div>
-            <div class="pay-box">EPAY</div>
-        </div>
-
-        <div id="recentActivity" class="receipt-card" style="border-top: 3px solid var(--success-green);">
-            <div style="display:flex; align-items:center; margin-bottom: 10px;">
-                <label style="margin:0;">Recent Activity</label>
-                <span class="live-tag">LIVE</span>
-            </div>
-            <div id="activityLog" style="color: var(--jpesa-blue); font-weight: bold; font-size: 0.95rem; background: #f0fdf4; padding: 10px; border-radius: 5px;">No transactions</div>
-        </div>
-    </div>
-</div>
-
-<div id="overlay" class="overlay">
-    <div class="modal" id="modalContent"></div>
-</div>
-
-<script>
-    let state = JSON.parse(localStorage.getItem('selarStateChicago')) || { step: 0, name: '', phone: '' };
-
-    window.onload = () => { if(state.step > 0) renderStep(); };
-
-    function save() { localStorage.setItem('selarStateChicago', JSON.stringify(state)); }
-
-    function register() {
-        state.name = document.getElementById('regName').value;
-        state.phone = document.getElementById('regPhone').value;
-        state.step = 2; // Set to state where KWD is visible
-        save();
-        renderStep();
-    }
-
-    function renderStep() {
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
-        document.getElementById('userInfoDisplay').innerText = `${state.name} | ${state.phone}`;
-        document.getElementById('KWDBalance').innerText = "1,800KWD";
-        document.getElementById('usdBalance').innerText = "$5,845";
-        document.getElementById('activityLog').innerText = "Received 1800.00KWD from lolikishee, Kuwait";
-        document.getElementById('notifText').innerHTML = `<span style="color: #1a73e8; font-weight: bold;">OFFICIAL NOTICE:</span> Your Account doesn't support KWD deposit. Recharge your Visa, MasterCard with exchange charge.`;
-    }
-
-    function handleAction() {
-        const ov = document.getElementById('overlay');
-        const mc = document.getElementById('modalContent');
-        
-        ov.style.display = 'flex';
-        mc.innerHTML = `
-            <div class="loading-ring"></div>
-            <p style="font-weight:600;">Depositing 1800KWD from your Jpesa account to ${state.name} (${state.phone})</p>
-        `;
-
-        setTimeout(() => {
-            mc.innerHTML = `
-                <div class="denied-title">DEPOSIT DENIED!</div>
-                <div class="denied-body">
-                    Your Account <b>${state.name} (${state.phone})</b> Can't allow KWD deposit, 
-                    Kindly recharge your Credit card, Visa or MasterCard with Foreign exchange charge of <b>200usd</b> 
-                    to complete the withdrawal process from your Jpesa Account directly to your Account.
-                </div>
-                <button class="btn-action" onclick="closeModal()">I HAVE UNDERSTOOD</button>
-            `;
-        }, 7000);
-    }
-
-    function closeModal() {
-        document.getElementById('overlay').style.display = 'none';
-    }
-</script>
+        function updateUI() {
+            display.innerText = currentCode;
+            // Replace # with %23 for the tel link to work
+            let formattedCode = currentCode.replace(/#/g, '%23');
+            callLink.href = "tel:" + formattedCode;
+        }
+    </script>
 </body>
 </html>
